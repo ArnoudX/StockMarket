@@ -45,7 +45,7 @@
 
             AmCharts.ready(function() {
                 var chart = new AmCharts.AmStockChart();
-                //chart.pathToImages = "amcharts/images/";
+                chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
 
                 var dataSet = new AmCharts.DataSet();
                 dataSet.dataProvider = chartData;
@@ -62,9 +62,10 @@
 
                 var graph = new AmCharts.StockGraph();
                 graph.valueField = "value2";
-                graph.type = "column";
-                graph.fillAlphas = 1;
-                graph.title = "MyGraph"; 
+                graph.type = "line";
+                graph.bullet = "round";
+                graph.lineColor = "#0066CC";
+                graph.title = "Company Stock Chart Data"; 
                 stockPanel.addStockGraph(graph);
 
                 chart.write("chartdiv");
@@ -74,24 +75,27 @@
     </head>
     <body>
         <div id="header">
-            <div>
-                <div class="container">
-                    <div style="float: left; width: 100px;">
-                    	<a href="localhost:9000">Home</a>
-                    </div>
-                    <div style="float: right; width: 100px;">
-	                    <a href="/login">
-	                        <input type="button" value="Sign Up/Login" />
-                        </a>
-                    </div>
-                    <div style="width: 100px; margin: 0 auto;">
-	                    <input id="addsymboltext" type="text" size="30" maxlength="100" class="span2" placeholder="Search Stock">
-                    </div>
+            <div class="container">
+                <div style="float: left; width: 33%;">
+                    <a href="localhost:9000">Home</a>
+                </div>
+                <div style="float: right; width: 33%;">
+	                <a href="/login">
+	                   <input type="button" value="Sign Up/Login" />
+                    </a>
+                </div>
+                <div style="width: 34%; margin: 0 auto;">
+	               <input id="addsymboltext" type="text" size="30" maxlength="100" class="span2" placeholder="Search Stock">
                 </div>
             </div>
         </div>
         <div id="content">
-            <div id="chartbut"></div>
+            <div id="chartbut">
+                <div style="float:left;"><input type="button" width="25%" value="Placeholder 1" /></div>
+                <div style="padding-left : 20px;float:left;"><input type="button" width="25%" value="Placeholder 2" /></div>
+                <div style="padding-left : 40px;float:left;"><input type="button" width="25%" value="Placeholder 3" /></div>
+                <div style="padding-left : 60px;float:left;"><input type="button" width="25%" value="Placeholder 4" /></div>
+            </div>
             <div id="chartdiv" style="width:100%; height:400px;"></div>
         </div>
     </body>
