@@ -7,16 +7,15 @@ require 'json'
 require 'open-uri'
 require 'net/http'
 
-fJson = File.open("jsonDB.json",'w')
 tickers = Array.new
 type = 'WIKI'
+number = 0
 
 CSV.foreach("quandl.csv") do |row|  #open your file and loop through the rows
 	tickers.push(row[0])
 end
 
 tickers.each do |ticker|
-	
 	url = ("https://www.quandl.com/api/v1/datasets/#{type}/#{ticker}.json?column=4&sort_order=asc&collapse=daily&auth_token=yyUqjmtLNag5dmxU8xkG&output=json")
 
 	# Parse the url to check its components whether it exists at all
@@ -28,8 +27,10 @@ tickers.each do |ticker|
 	#puts url_parse.host
 	
 	if res.code == "200"
+		fJson = File.open("#{number}.json",'w')
 		fJson.write(open(url).readlines)
-		fJson.write("\n")
+		fJson.close
+		number = number + 1
 		puts "Page successfully processed."
 	elsif res.code == "403"
 		puts "Forbidden: Page probably requires special permission."
@@ -40,6 +41,5 @@ tickers.each do |ticker|
 	end
 end
 
-fJson.close
 
 
