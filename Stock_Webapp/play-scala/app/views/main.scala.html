@@ -58,24 +58,24 @@
                         {"date":"2014-09-23","value":"56.98"}
                     ];       
 
+        
             AmCharts.ready(function() {
-                $("#magie").click(function(){
                     var chart = new AmCharts.AmStockChart();
                     chart.pathToImages = "http://www.amcharts.com/lib/3/images/";
-        
+    
                     var dataSet = new AmCharts.DataSet();
                     dataSet.dataProvider = chartData;
                     dataSet.fieldMappings = [{fromField:"value", toField:"value2"}];   
                     dataSet.categoryField = "date";          
                     chart.dataSets = [dataSet];
-        
+    
                     var stockPanel = new AmCharts.StockPanel();
                     chart.panels = [stockPanel];
-        
+    
                     var panelsSettings = new AmCharts.PanelsSettings();
                     panelsSettings.startDuration = 1;
                     chart.panelsSettings = panelsSettings;   
-        
+    
                     var graph = new AmCharts.StockGraph();
                     graph.valueField = "value2";
                     graph.type = "line";
@@ -83,14 +83,15 @@
                     graph.lineColor = "#0066CC";
                     graph.title = "Company Stock Chart Data"; 
                     stockPanel.addStockGraph(graph);
-        
+    
                     chart.write("chartdiv");
-                }
+                });
+                
+            $(document).ready(function(){
+                $("#magie").click(function(){
+                    $("#chartdiv").toggle()
+                });
             });
-            
-            $(document).ready(function() {
-                  $("#chartdiv").toggle('slow');
-            }
             
         </script>
     </head>
@@ -114,13 +115,12 @@
             <div><input type="button" style="float: left" size="18.75%" onclick="loadData()" value="Load Data" /><br></div>
             <div id="chartbut">
                 <div><input type="button" style="float: left" size="18.75%" value="Snapshot" /></div>
-                <div id="chartdiv"><input id="magie" type="button" style="float: left" size="18.75%" value="Charts" />
-                    <!--<div id="chartdiv" style="display: hidden;"></div>-->
-                </div>
+                <div><input id="magie" type="button" style="float: left" size="18.75%" value="Charts" /></div>
                 <div><input type="button" style="float: left" size="18.75%" value="Company" /></div>
                 <div><input type="button" style="float: left" size="18.75%" value="Data Table" /></div>
             </div>
-            <!--<div id="chartdiv"></div>-->
+            <br />
+            <div id="chartdiv"></div>
         </div>
     </body>
 </html>
