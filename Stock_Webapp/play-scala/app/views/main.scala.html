@@ -24,16 +24,22 @@
             border: 2px solid;
             border-radius: 25px;
         }
-        #chartbut{
+        #chartbuthead{
             margin-left: auto;
             margin-right: auto;
             text-align: center
-            width:75%;
+            width:50%;
+        }
+        #chartbut{
+            float: left;
+            width:12.5%;
+            position:relative;
+            left:25%;
         }
         #chartdiv{
             margin-left: auto;
             margin-right: auto;
-            width:75%; 
+            width:50%; 
             height:400px;
         }
         </style>
@@ -93,6 +99,13 @@
                 });
             });
             
+            $url = 'test.json';    
+            $.getJSON($url, function(data) {
+                for (var i = 0, len = data.length; i < len; i++) {
+                 //some code
+                }
+            });
+            
         </script>
     </head>
     <body>
@@ -111,12 +124,14 @@
                 </div>
             </div>
         </div>
+        <br />
+        <br />
         <div id="content">
-            <div id="chartbut">
-                <div><input type="button" style="float: left" size="18.75%" value="Snapshot" /></div>
-                <div><input id="magie" type="button" style="float: left" size="18.75%" value="Charts" /></div>
-                <div><input type="button" style="float: left" size="18.75%" value="Company" /></div>
-                <div><input type="button" style="float: left" size="18.75%" value="Data Table" /></div>
+            <div id="chartbuthead">
+                <div id="chartbut" align="center"><input type="button" value="Snapshot" /></div>
+                <div id="chartbut" align="center"><input id="magie" type="button" value="Charts" /></div>
+                <div id="chartbut" align="center"><input type="button" value="Company" /></div>
+                <div id="chartbut" align="center"><input type="button" value="Data Table" /></div>
             </div>
             <br />
             <div id="chartdiv"></div>

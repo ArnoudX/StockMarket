@@ -8,38 +8,48 @@ require 'open-uri'
 require 'net/http'
 
 tickers = Array.new
-type = 'WIKI'
 number = 0
 
 CSV.foreach("quandl.csv") do |row|  #open your file and loop through the rows
-	tickers.push(row[0])
+	if number >= 61134
+		tickers.push(row[0])
+	end
+	number = number + 1
 end
 
+number = 61134
+errors = File.open("errors#{number}.csv",'w')
+
 tickers.each do |ticker|
-	url = ("https://www.quandl.com/api/v1/datasets/#{type}/#{ticker}.json?column=4&sort_order=asc&collapse=daily&auth_token=yyUqjmtLNag5dmxU8xkG&output=json")
+	url = ("http://www.quandl.com/api/v1/datasets/#{ticker}.json?trim_start=1950-12-12&trim_end=2014-10-07&auth_token=yyUqjmtLNag5dmxU8xkG")
 
 	# Parse the url to check its components whether it exists at all
 	url_parse = URI.parse(url)
 	req = Net::HTTP.new(url_parse.host, url_parse.port)
-	req.use_ssl = true
+	req.use_ssl = false
 	res = req.request_head(url)
-	puts ticker + ": " + res.code
+	#puts ticker + ": " + res.code
 	#puts url_parse.host
 	
 	if res.code == "200"
 		fJson = File.open("#{number}.json",'w')
-		fJson.write(open(url).readlines)
+		fJson.write(open(url).read())
 		fJson.close
-		number = number + 1
-		puts "Page successfully processed."
+		puts "Page #{number} successfully processed."
 	elsif res.code == "403"
-		puts "Forbidden: Page probably requires special permission."
+		puts "Forbidden: Page #{number} probably requires special permission."
 	elsif res.code == "404"
-		puts "Page cannot be reached."
+		puts "Page #{number} cannot be reached."
     elsif res.code == "429"
 		puts "Too many requests. Please try again later."
+	elsif res.code == "500"
+		errors.write("#{ticker}")
+		errors.write("#{number}")
+		puts "Internal Server error on page #{number}."
 	end
+	number = number + 1
 end
 
+errors.close
 
 
