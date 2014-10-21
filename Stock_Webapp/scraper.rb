@@ -11,13 +11,13 @@ tickers = Array.new
 number = 0
 
 CSV.foreach("quandl.csv") do |row|  #open your file and loop through the rows
-	if number >= 61134
+	if number >= 67861
 		tickers.push(row[0])
 	end
 	number = number + 1
 end
 
-number = 61134
+number = 67861
 errors = File.open("errors#{number}.csv",'w')
 
 tickers.each do |ticker|

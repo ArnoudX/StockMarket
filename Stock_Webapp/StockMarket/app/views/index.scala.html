@@ -1,0 +1,31 @@
+@()
+
+@main("Create the Main Stock Page") {
+    <div id="header">
+        <div class="container">
+            <div style="float: left; width: 33%;">
+                <a href="localhost:9000">Home</a>
+            </div>
+            <div style="float: right; width: 33%;">
+	           <a href="/login">
+	               <input type="button" value="Sign Up/Login" />
+                </a>
+            </div>
+            <div style="width: 34%; margin: 0 auto;">
+	           <input id="addsymboltext" type="text" size="30" maxlength="100" class="span2" placeholder="Search Stock">
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    <div id="content">
+        <div id="chartbuthead">
+            <div id="chartbut" align="center"><input type="button" value="Snapshot" /></div>
+            <div id="chartbut" align="center"><input id="magie" type="button" value="Charts" /></div>
+            <div id="chartbut" align="center"><input type="button" value="Company" /></div>
+            <div id="chartbut" align="center"><input type="button" value="Data Table" /></div>
+        </div>
+        <br />
+        <div id="chartdiv"></div>
+    </div>
+}
